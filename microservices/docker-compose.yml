@@ -1,0 +1,59 @@
+version: "3"
+services:
+  registry-sr:
+    image: registry-service
+    build: ./EurekaServer
+    ports:
+      - "8761:8761"
+    networks:
+      - app-network
+
+
+  api-gateway-sr:
+    image: api-gateway
+    build: ./gateway
+    ports:
+      - "8222:8222"
+    networks:
+      - app-network
+    depends_on:
+      - registry-sr
+
+  authentication-sr:
+    image: authentication-service
+    build: ./AuthenticationService
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - registry-sr
+      - api-gateway-sr
+
+  project-sr:
+    image: project-service
+    build: ./Projectinfo
+    ports:
+      - "9091:9091"
+    networks:
+      - app-network
+    depends_on:
+      - registry-sr
+      - api-gateway-sr
+      - authentication-sr
+
+  employee-sr:
+    image: employee-service
+    build: ./Employeeinfo
+    ports:
+      - "9092:9092"
+    networks:
+      - app-network
+    depends_on:
+      - registry-sr
+      - api-gateway-sr
+      - authentication-sr
+
+
+networks:
+  app-network:

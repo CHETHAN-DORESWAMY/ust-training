@@ -1,0 +1,15 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://api-gateway-sr:8761/eureka/
+server:
+  port: 9091
+spring:
+  application:
+    name: Employee-jpastreamer
+  data:
+    mongodb:
+      uri: mongodb+srv://rdchethan22:Chethan22@cluster0.qpqfg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: Project
+
+
